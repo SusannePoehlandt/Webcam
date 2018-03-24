@@ -11,7 +11,7 @@ while cam.isOpened():
     ret, frame = cam.read()
 
     # Anweisung anzeigen
-    cv2.putText(frame, "Druecke: Schwarz/Weiss = w", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+    cv2.putText(frame, "Druecke: Schwarz/Weiss = w | Sepia = s", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
     # warte auf Tastendruck (sonst sieht man das Fenster nicht)
     key = cv2.waitKey(1)
@@ -24,11 +24,15 @@ while cam.isOpened():
     if key == 110:
         color = "normal"
 
-    # Farbeffekt
+    # Farbeffekte
     if color == "sw":
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     if color == "sepia":
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        sepia = numpy.asarray([[0.393, 0.769, 0.189],
+                             [0.349, 0.686, 0.168],
+                             [0.272, 0.534, 0.131]])
+        frame = cv2.transform(frame, sepia)
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
     # zeige Frame an
     cv2.imshow("Webcam", frame)
