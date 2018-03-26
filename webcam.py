@@ -21,6 +21,14 @@ while cam.isOpened():
         color = "sw"
     if key == 115:
         color = "sepia"
+    if key == 112:
+        color = "protanopia"
+    if key == 100:
+        color = "deuteranopia"
+    if key == 116:
+        color = "tritanopia"
+    if key == 97:
+        color = "achromatopsia"
     if key == 110:
         color = "normal"
 
@@ -32,6 +40,30 @@ while cam.isOpened():
                              [0.349, 0.686, 0.168],
                              [0.272, 0.534, 0.131]])
         frame = cv2.transform(frame, sepia)
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    if color == "protanopia":
+        rg = numpy.asarray([[0, 0.558, 0.567],
+                            [0.242, 0.442, 0.433],
+                            [0.758, 0, 0]])
+        frame = cv2.transform(frame, rg)
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    if color == "deuteranopia":
+        rg = numpy.asarray([[0, 0.70, 0.625],
+                            [0.30, 0.30, 0.375],
+                            [0.70, 0, 0]])
+        frame = cv2.transform(frame, rg)
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    if color == "tritanopia":
+        rg = numpy.asarray([[0, 0, 0.95],
+                            [0.475, 0.433, 0.05],
+                            [0.525, 0.567, 0]])
+        frame = cv2.transform(frame, rg)
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    if color == "achromatopsia":
+        rg = numpy.asarray([[0.299, 0.587, 0.114],
+                            [0.299, 0.587, 0.114],
+                            [0.299, 0.587, 0.114]])
+        frame = cv2.transform(frame, rg)
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
     # zeige Frame an
